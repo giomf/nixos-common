@@ -1,13 +1,5 @@
 { pkgs, ... }:
 {
-
-  imports = [
-    ./nix-settings.nix
-    ./user.nix
-    ./ssh.nix
-    ./fail2ban.nix
-  ];
-
   security = {
     sudo.wheelNeedsPassword = false;
   };
@@ -23,5 +15,6 @@
   i18n = {
     defaultLocale = "de_DE.UTF-8";
     extraLocaleSettings.LC_ALL = "de_DE.UTF-8";
+
   };
 }

@@ -1,14 +1,20 @@
-{ pkgs, ... }:
 {
-
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   programs.fish.enable = true;
   users = {
     users = {
       guif = {
-        extraGroups = [
-          "wheel"
-          "ssh"
-        ];
+        extraGroups =
+          [
+            "wheel"
+          ]
+          ++ lib.optional config.services.openssh.enable "ssh"
+          ++ lib.optional config.virtualisation.docker.enable "docker";
         group = "guif";
         initialHashedPassword = "$y$j9T$hHZ1NIxqNvPno5mkSDSjI1$PojSMDbnHYHcrrdaTw74w6tSlLIRvMCbCbaCiDpMx3.";
         isNormalUser = true;
@@ -18,7 +24,12 @@
         shell = pkgs.fish;
       };
     };
-    groups.guif = { };
-    groups.ssh = { };
+    groups =
+      {
+        guif = { };
+      }
+      // lib.optionalAttrs config.services.openssh.enable {
+        ssh = { };
+      };
   };
 }
