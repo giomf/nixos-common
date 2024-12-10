@@ -15,11 +15,5 @@
       enable = true;
       overalljails = true;
     };
-    jails.traefik-auth.settings = {
-      logpath = "/tank/encrypted/services/traefik/logs/access.log";
-      backend = "auto";
-      mode = "aggressive";
-      action = ''dummy[target=/var/run/fail2ban/fail2ban.dummy.txt]'';
-    };
   };
 }
